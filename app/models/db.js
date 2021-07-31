@@ -33,7 +33,7 @@ async function createDB() {
         await db.execute('CREATE TABLE IF NOT EXISTS countries ( id int(10) unsigned NOT NULL AUTO_INCREMENT, continent_id int(11) NOT NULL, name varchar(25) NOT NULL, PRIMARY KEY (id) );')
         await db.execute('CREATE TABLE IF NOT EXISTS continents ( id int(10) unsigned NOT NULL AUTO_INCREMENT, name varchar(25) NOT NULL, anual_adjustment int(11) NOT NULL, PRIMARY KEY (id) );')
         await db.execute('CREATE TABLE IF NOT EXISTS employees ( id int(10) unsigned NOT NULL AUTO_INCREMENT, country_id int(11) NOT NULL, first_name varchar(25) NOT NULL, last_name varchar(25) NOT NULL, salary int(11) NOT NULL, PRIMARY KEY (id) );')
-        await db.execute('CREATE TABLE IF NOT EXISTS companies ( id int(10) unsigned NOT NULL AUTO_INCREMENT, country_id int(11) NOT NULL, name varchar(60) NOT NULL, address varchar(60) NOT NULL, employees_amount int(11) NOT NULL, PRIMARY KEY (id) );')
+        await db.execute('CREATE TABLE IF NOT EXISTS companies ( id int(10) unsigned NOT NULL AUTO_INCREMENT, country_id int(11) NOT NULL, name varchar(60) NOT NULL, address varchar(60) NOT NULL, employee_amount int(11) NOT NULL, PRIMARY KEY (id) );')
     } catch (error) {
         console.log(error);
     }
