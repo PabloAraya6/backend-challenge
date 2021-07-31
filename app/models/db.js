@@ -83,4 +83,4 @@ async function seedFakeData(n) {
 }
 
 
-module.exports = { createDB, seedDB, seedFakeData, connection }
+module.exports = { createDB, seedDB, seedFakeData, connection, pool }
