@@ -6,13 +6,13 @@ require('dotenv').config();
 
 const errorMiddleware = require('../middlewares/error.middleware')
 // routes
-// modelRoutes = require('..')
+const companyRoutes = require('../routes/company.route')
 // configs
 const db = require('../models/db')
 
 class Server {
     apiPaths = {
-        aboutUs: '/api/about_us',
+        companies: '/api/companies'
     }
 
     constructor(port, app) {
@@ -48,7 +48,7 @@ class Server {
     }
 
     routes() {
-        // this.app.use(this.apiPaths.model, modelRoutes)
+        this.app.use(this.apiPaths.companies, companyRoutes)
     }
 
     listen() {
