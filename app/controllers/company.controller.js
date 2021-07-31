@@ -1,5 +1,5 @@
 const {pool} = require('../models/db')
-
+const companySeeder = require('../models/db')
 const post = async (req, res, next) => {
     try {
         const db = await pool.getConnection()
@@ -11,7 +11,19 @@ const post = async (req, res, next) => {
     } catch(error) {
         next(error)
     }
-};
+}
 
-module.exports = {post};
+const seed = async (req, res, next) => {
+    try {
+        const db = await pool.getConnection()
+        let n = req.query.n
+        await companySeeder.seedFakeData(n)
+        let result = await db.execute('SELECT * FROM companies')
+        res.status(200).json({message: "success", count: result[0].length, data: result[0]});
+    } catch (error) {
+        next(error)
+    }
+}
+
+module.exports = {post, seed};
 

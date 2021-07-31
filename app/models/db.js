@@ -64,7 +64,7 @@ async function seedFakeData(n) {
         const db = await pool.getConnection()
         db.changeUser({ database: config.DATABASE_NAME })
 
-        while (i <= n) {
+        while (i < n) {
             // set language in spanish
             faker.local = 'es'
             data = {
