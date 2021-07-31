@@ -28,10 +28,9 @@ class Server {
 
     async dbConnection() {
         try {
-            db.connection()
-            db.createDB()
-            db.seedDB()
-            // console.log('Database populated! ✅')
+            await db.createDB()
+            await db.connection()
+            await db.seedDB()
         } catch (error) {
             throw error
         }
