@@ -5,9 +5,9 @@ const validator = require('../validators/company.validator')
 
 router.get('/', companyController.index)
 router.post('/', validator.post, companyController.post)
-router.put('/:id', companyController.update)
-router.get('/:id', companyController.show)
-router.delete('/:id', companyController.destroy)
-router.post('/seed', companyController.seed)
+router.put('/:id', validator.update, companyController.update)
+router.get('/:id', validator.exist, companyController.show)
+router.delete('/:id', validator.exist, companyController.destroy)
+router.post('/seed', validator.seed, companyController.seed)
 
 module.exports = router;
