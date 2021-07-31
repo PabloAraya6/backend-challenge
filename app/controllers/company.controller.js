@@ -1,5 +1,14 @@
 const {pool} = require('../models/db')
 const companySeeder = require('../models/db')
+
+const index = async (req, res, next) => {
+    try {
+        
+    } catch (error) {
+        next(error)
+    }
+}
+
 const post = async (req, res, next) => {
     try {
         const db = await pool.getConnection()
@@ -9,6 +18,31 @@ const post = async (req, res, next) => {
         data = inserted[0]
         res.status(201).json({message: "success", data: data });
     } catch(error) {
+        next(error)
+    }
+}
+
+
+const update = async (req, res, next) => {
+    try {
+        
+    } catch (error) {
+        next(error)
+    }
+}
+
+const destroy = async (req, res, next) => {
+    try {
+        
+    } catch (error) {
+        next(error)
+    }
+}
+
+const show = async (req, res, next) => {
+    try {
+        
+    } catch (error) {
         next(error)
     }
 }
@@ -25,5 +59,5 @@ const seed = async (req, res, next) => {
     }
 }
 
-module.exports = {post, seed};
+module.exports = {index, post, update, destroy, show, seed};
 
