@@ -35,7 +35,11 @@ const update = async (req, res, next) => {
 
 const destroy = async (req, res, next) => {
     try {
-        
+        const db = await pool.getConnection()
+        let { id } = req.params
+        let deleted = await db.execute('SELECT * FROM companies WHERE id = ?',[id])
+        let result = await db.execute('DELETE FROM companies where id = ?',[id])
+        res.status(200).json({message: "success", data: deleted[0] });
     } catch (error) {
         next(error)
     }
