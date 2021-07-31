@@ -59,7 +59,27 @@ async function seedDB() {
 }
 
 async function seedFakeData(n) {
+    try {
+        let i = 0
+        const db = await pool.getConnection()
+        db.changeUser({ database: config.DATABASE_NAME })
 
+        while (i <= n) {
+            // set language in spanish
+            faker.local = 'es'
+            data = {
+                country_id: faker.datatype.number({ 'min': 1, 'max': 25 }), // range of countries id's
+                name: faker.company.companyName(),
+                address: faker.address.streetAddress(),
+                employee_amount: faker.datatype.number({ 'min': 45, 'max': 300 }) // number of employees
+            }
+            
+            await db.execute('INSERT INTO companies VALUES (null,?,?,?,?)', [data.country_id, data.name, data.address, data.employee_amount])
+            i++
+        }
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 
