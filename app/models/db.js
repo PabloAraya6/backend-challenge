@@ -1,10 +1,10 @@
-const mysql = require('mysql2/promise');
-require('dotenv').config()
+const mysql = require('mysql2/promise')
+const config = require('../config/config')
 
 const pool = mysql.createPool({
-    host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
+    host: config.DATABASE_HOST,
+    user: config.DATABASE_USER,
+    password: config.DATABASE_PASSWORD,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
@@ -23,11 +23,11 @@ async function connection() {
 
 async function createDB() {
     try {
-        await pool.execute(`CREATE DATABASE IF NOT EXISTS ${process.env.DATABASE_NAME}`)
+        await pool.execute(`CREATE DATABASE IF NOT EXISTS ${config.DATABASE_NAME}`)
         const db = await pool.getConnection()
         console.log('Database online! 🚀')
 
-        db.changeUser({ database: process.env.DATABASE_NAME })
+        db.changeUser({ database: config.DATABASE_NAME })
 
         db.execute('CREATE TABLE IF NOT EXISTS countries ( id int(10) unsigned NOT NULL AUTO_INCREMENT, continent_id int(11) NOT NULL, name varchar(25) NOT NULL, PRIMARY KEY (id) );')
         db.execute('CREATE TABLE IF NOT EXISTS continents ( id int(10) unsigned NOT NULL AUTO_INCREMENT, name varchar(25) NOT NULL, anual_adjustment int(11) NOT NULL, PRIMARY KEY (id) );')
@@ -41,7 +41,7 @@ async function createDB() {
 async function seedDB() {
     try {
         const db = await pool.getConnection()
-        db.changeUser({ database: process.env.DATABASE_NAME })
+        db.changeUser({ database: config.DATABASE_NAME })
 
         const [continents] = await db.execute('SELECT * FROM continents')
         if (continents) await db.execute(`INSERT INTO continents VALUES (null, 'América', 4), (null, 'Europa', 5), (null, 'Asia', 6), (null, 'Oceanía', 6), (null, 'Africa', 5);`)
