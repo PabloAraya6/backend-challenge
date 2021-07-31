@@ -45,6 +45,8 @@ class Server {
         this.app.use(express.json())
         // public folder (just-in-case)
         this.app.use(express.static('public'))
+        // handling error
+        this.app.use(errorMiddleware)
     }
 
     routes() {
