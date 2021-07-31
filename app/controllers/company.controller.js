@@ -3,7 +3,9 @@ const companySeeder = require('../models/db')
 
 const index = async (req, res, next) => {
     try {
-        
+        const db = await pool.getConnection()
+        let result = await db.execute('SELECT * FROM companies')
+        res.status(200).json({message: "success", totalItems: result[0].length, data: result[0]});
     } catch (error) {
         next(error)
     }
@@ -53,7 +55,7 @@ const seed = async (req, res, next) => {
         let n = req.query.n
         await companySeeder.seedFakeData(n)
         let result = await db.execute('SELECT * FROM companies')
-        res.status(200).json({message: "success", count: result[0].length, data: result[0]});
+        res.status(200).json({message: "success", totalItems: result[0].length, data: result[0]});
     } catch (error) {
         next(error)
     }
