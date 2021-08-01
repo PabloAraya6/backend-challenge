@@ -7,12 +7,14 @@ require('dotenv').config();
 const errorMiddleware = require('../middlewares/error.middleware')
 // routes
 const companyRoutes = require('../routes/company.route')
+const exerciseRoutes = require('../routes/exercise.route')
 // configs
 const db = require('../models/db')
 
 class Server {
     apiPaths = {
-        companies: '/api/companies'
+        companies: '/api/companies',
+        exercises: '/api/exercises'
     }
 
     constructor(port, app) {
@@ -51,6 +53,7 @@ class Server {
 
     routes() {
         this.app.use(this.apiPaths.companies, companyRoutes)
+        this.app.use(this.apiPaths.exercises, exerciseRoutes)
     }
 
     listen() {
