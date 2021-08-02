@@ -1,19 +1,7 @@
 version: '3'
 services:
-                    #### API #### 
-  api:
-    container_name: api
-    restart: unless-stopped
-    build:
-      context: .
-    ports:
-      - "8000:8000"
-    networks:
-      - network_api
-    depends_on: 
-      - db_api
-
                     #### DATABASE #### 
+
   db_api:
     image: mysql:8.0
     container_name: db_api
@@ -25,6 +13,22 @@ services:
       - network_api
     volumes:
       - database_api:/var/lib/mysql
+
+                          #### API #### 
+  api:
+    depends_on: 
+      - db_api
+    container_name: api
+    restart: unless-stopped
+    build:
+      context: .
+    command: bash -c 'while !</dev/tcp/db_api/3306; do sleep 1; done; npm start'
+    ports:
+      - "8000:8000"
+    networks:
+      - network_api
+
+
 
                     #### NETWORKS #### 
 networks:
