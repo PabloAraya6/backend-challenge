@@ -8,6 +8,9 @@ Desafío técnico para Envíame
 * Base de datos en MySQL, en otro container de Docker, con su respectivo volumen.
 
 ## Getting Started
+### Dependencias
+
+Tener instalado [Docker](https://docs.docker.com/compose/install/)
 
 ### Ejecutando
 
@@ -43,7 +46,6 @@ https://www.getpostman.com/collections/2c9ad26f5a5c5cb74abe
 * Ejercicio 7 - update salary
 
 ## Ayuda
-
 * Asegurarse que no hay ningún servicio corriendo en el puerto 3306
 
 ## Authors
