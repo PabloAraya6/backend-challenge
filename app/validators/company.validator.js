@@ -14,7 +14,7 @@ const post = [
     body('address').notEmpty().withMessage('Required field address')
         .isString().isLength({max:60}).withMessage('must be string value with 60 chars max'),
     body('employee_amount').notEmpty().withMessage('Required field employee_amount')
-        .isInt({ max: 11 }).withMessage('must be integer value max 11'),
+        .isInt().withMessage('must be integer value '),
     body('country_id').notEmpty().withMessage('Required field country_id')
         .isInt({ min: 1, max: 25}).withMessage('must be integer value between 1 - 25'),
     validateFields
@@ -24,7 +24,7 @@ const update = [
     param('id').custom(validCompany),
     body('name').isString().isLength({max:60}).withMessage('must be string value with 60 chars max'),
     body('address').isString().isLength({max:60}).withMessage('must be string value with 60 chars max'),
-    body('employee_amount').isInt().isLength({max: 11}).withMessage('must be integer value max 11'),
+    body('employee_amount').isInt().isLength().withMessage('must be integer value max 11'),
     body('country_id').isInt({ min: 1, max: 25}).withMessage('must be integer value between 1 - 25'),
     validateFields
 ]

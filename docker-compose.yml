@@ -1,6 +1,6 @@
 version: '3'
 services:
-
+                    #### API #### 
   api:
     container_name: api
     restart: unless-stopped
@@ -10,7 +10,10 @@ services:
       - "8000:8000"
     networks:
       - network_api
+    depends_on: 
+      - db_api
 
+                    #### DATABASE #### 
   db_api:
     image: mysql:8.0
     container_name: db_api
