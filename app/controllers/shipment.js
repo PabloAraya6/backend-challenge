@@ -13,15 +13,14 @@ const shipmentController = async (req, res, next) => {
         }
     }
 
-    const db = await pool.getConnection()
     try {
         const resp = await axios.post(url, data, config)
         if (resp.status >= 200 && resp.status < 300) {
-            db.execute('INSERT INTO shipments VALUES (null,?,?,?)',[1,resp.status,resp.data])
+            await pool.execute('INSERT INTO shipments VALUES (null,?,?,?)',[1,resp.status,resp.data])
             res.status(200).json({message: 'shipment created', data: resp.data})
         }
     } catch (error) {
-        db.execute('INSERT INTO shipments VALUES (null,?,?,?)',[0,error.response.status, error.response.data])
+        await pool.execute('INSERT INTO shipments VALUES (null,?,?,?)',[0,error.response.status, error.response.data])
         res.status(error.response.status).json({ message: `shipment fail - ${error.response.statusText}`, error: error.response.data })
     }
 }

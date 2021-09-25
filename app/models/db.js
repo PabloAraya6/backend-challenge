@@ -35,6 +35,7 @@ async function createDB() {
         await db.execute('CREATE TABLE IF NOT EXISTS employees ( id int(10) unsigned NOT NULL AUTO_INCREMENT, country_id int(11) NOT NULL, first_name varchar(25) NOT NULL, last_name varchar(25) NOT NULL, salary int(11) NOT NULL, PRIMARY KEY (id) );')
         await db.execute('CREATE TABLE IF NOT EXISTS companies ( id int(10) unsigned NOT NULL AUTO_INCREMENT, country_id int(11) NOT NULL, name varchar(60) NOT NULL, address varchar(60) NOT NULL, employee_amount int(11) NOT NULL, PRIMARY KEY (id) );')
         await db.execute('CREATE TABLE IF NOT EXISTS shipments ( id int(10) unsigned NOT NULL AUTO_INCREMENT, success tinyint(1) NOT NULL, status_code int(11), data varchar(255) NOT NULL, PRIMARY KEY (id) );')
+        db.release()
     } catch (error) {
         console.log(error);
     }
@@ -53,7 +54,7 @@ async function seedDB() {
 
         const [employees] = await db.execute('SELECT * FROM employees')
         if (employees) await db.execute(`INSERT INTO employees VALUES (null, 1, 'Pedro', 'Rojas', 2000),(null, 2, 'Luciano', 'Alessandri', 2100),(null, 3, 'John', 'Carter', 3050),(null, 4, 'Alejandra', 'Benavides', 2150),(null, 5, 'Moritz', 'Baring', 6000),(null, 6, 'Thierry', 'Henry', 5900),(null, 7, 'Sergio', 'Ramos', 6200),(null, 8, 'Nikoleta', 'Kyriakopulu', 7000),(null, 9, 'Aamir', 'Khan', 2000),(null, 10, 'Takumi', 'Fujiwara', 5000),(null, 11, 'Heung-min', 'Son', 5100),(null, 12, 'Peter', 'Johnson', 6100);`)
-
+        db.release()
     } catch (error) {
         console.log(error)
     }
@@ -78,6 +79,7 @@ async function seedFakeData(n) {
             await db.execute('INSERT INTO companies VALUES (null,?,?,?,?)', [data.country_id, data.name, data.address, data.employee_amount])
             i++
         }
+        db.release()
     } catch (error) {
         console.log(error)
     }

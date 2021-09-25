@@ -2,9 +2,8 @@ const { pool } = require('../models/db')
 
 const salary = async (req, res, next) => {
     try {
-        const db = await pool.getConnection()
         const query = 'UPDATE employees INNER JOIN countries ON employees.country_id = countries.id INNER JOIN continents ON countries.continent_id = continents.id SET salary = (1 + (anual_adjustment) / 100) * salary WHERE salary <= 5000;'
-        const result = await db.execute(query)
+        const result = await pool.execute(query)
         let data = ''
         if (result[0].affectedRows == 0) {
             data = 'No salary was updated'
